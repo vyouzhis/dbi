@@ -1,0 +1,714 @@
+
+<body>
+	${navbar!""}
+	<div class="main-container" id="main-container">
+		<script type="text/javascript">
+			try {
+				ace.settings.check('main-container', 'fixed')
+			} catch (e) {
+			}
+		</script>
+		<div class="main-container-inner">
+
+			${menu!""}
+			<div class="main-content">
+				<div class="breadcrumbs" id="breadcrumbs">
+					<script type="text/javascript">
+						try {
+							ace.settings.check('breadcrumbs', 'fixed')
+						} catch (e) {
+						}
+					</script>
+					<ul class="breadcrumb">
+						<li><i class="icon-home home-icon"></i> <a href="#">首页</a></li>
+						<li class="active">${name}</li>
+					</ul>
+					<!-- #nav-search -->
+				</div>
+				<div class="page-content">
+					<!-- /.page-header -->
+					<div class="row">
+						<div class="col-xs-12 col-sm-9">							
+							<div id="custom-container" style="height:378px;" class="well col-xs-12 col-sm-12">
+							</div>
+							<div class="col-xs-12 col-sm-12 well">							
+								<div class="widget-box">
+									<div class="widget-header widget-header-flat">
+										<h4 class="smaller">
+											<i class="icon-cogs"></i>
+											模板规则
+										</h4>
+									</div>
+							
+									<div class="widget-body">
+										<div id="tmp_list" name="tmp_list">
+											
+										</div>
+									</div>
+								</div>								
+							</div>
+							<div id="juxtapose" name="juxtapose" class="col-xs-12 col-sm-12 hide">							
+								<div class="widget-box">
+									<div class="widget-header widget-header-flat">
+										<h4 class="smaller">
+											<i class="icon-cogs"></i>
+											对比规则
+										</h4>
+									</div>
+							
+									<div class="widget-body">
+										<div id="juxtapose_list" name="juxtapose_list">
+											
+										</div>
+									</div>
+								</div>								
+							</div>
+							<div class="col-xs-12 col-sm-12" >								
+								<!-- <script id="editor" type="text/plain" style="height:500px;"></script> 
+								<div class="wysiwyg-editor" name="dataEditor" id="dataEditor"></div>-->
+								<textarea class="ckeditor" id="editor1" name="editor1"></textarea>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-3">
+									<div class="col-xs-12 col-sm-12 hide" id="showTime" name="showTime">								
+											<i class="icon-time bigger-120 blue"></i>
+											耗时：<span id="useTime" name="useTime"></span>										
+									</div>
+					       		<div class="col-xs-12 col-sm-12 well">
+						 
+						       		<#if graphList??>
+						       		<#list graphList as item>
+						       		<div class="col-sm-12">
+							       		<div class="radio">
+											<label>
+												<input <#if (item_index) = 0> checked </#if> type="radio" name="graph_type" id="graph_type" value="${item['graph']}"  />
+												<span class="lbl chart_1 chart_${item['graph']}" style="text-align: left; text-indent: 32px;">${item['name']}</span> 
+											</label>											
+											</div>
+										</div>
+										</#list>
+										</#if>
+									 						       														
+						       	</div>
+						       	<div class="col-xs-12 col-sm-12 well">
+						       		<div id="show_line" name="show_line">
+							       		<div class="checkbox">
+											<label>
+												<input class="ace ace-checkbox-2" type="checkbox" name="itemStyle_lable" id="itemStyle_lable">
+												<span class="lbl"> itemStyle.lable</span>
+											</label>
+										</div>
+										
+										<div class="checkbox">
+											<label>
+												<input class="ace ace-checkbox-2" type="checkbox" name="itemStyle_areaStyle" id="itemStyle_areaStyle">
+												<span class="lbl">itemStyle.areaStyle</span>
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+												<input class="ace ace-checkbox-2" type="checkbox" name="markLine_average" id="markLine_average">
+												<span class="lbl">markLine.average</span>
+											</label>
+										</div>
+									</div>
+									<div class="checkbox">
+										<label>
+											<input class="ace ace-checkbox-2" type="checkbox" name="roseType" id="roseType">
+											<span class="lbl">南丁格尔玫瑰</span>
+										</label>
+									</div>
+						       	</div>
+						       	<div class="col-xs-12 col-sm-12 well">
+					       			<h5 class="bigger lighter">
+										<a class="btn btn-xs btn-app btn-primary" href="javascript:void(0)"
+											onclick="focusGraphic()"> <i class="icon-bar-chart"></i>生成图表
+										</a>
+										
+										<a href="javascript:void(0)" class=" btn btn-xs btn-app btn-primary"
+										onclick="SaveImg()"><i class="icon-th-large"></i> 保存图表</a>
+										
+										<a class="btn btn-success btn-xs btn-app"  id="bootbox-options"><i class="icon-ok bigger-110"></i>保存数据</a>
+										<a class="btn btn-success btn-xs btn-app"  id="bword"><i class="icon-ok bigger-110"></i>导出DOC</a>							
+									</h5>
+									
+					       		</div>		
+					       		<!-- 			       	
+					       		<div class="col-xs-12 col-sm-2">
+					       			<h5 class="bigger lighter">
+										<a class="btn btn-sm btn-primary" href="javascript:void(0)"
+											onclick="DownLoad()"> <i class="icon-download-alt"></i>下载数据
+										</a>
+									</h5>
+					       		</div>
+					       		 -->
+					       		 <div class="col-xs-12 col-sm-12 well">
+
+									
+		
+										<div class="widget-header header-color-blue2">
+											
+											<h3>列表</h3>
+											
+											<div class="widget-toolbar">
+												<!-- 
+												<a data-action="collapse" href="#"> <i
+													class="icon-chevron-up"></i>
+												</a>
+												 -->
+											</div>
+											<!-- 
+											<div class="widget-toolbar">
+												<a href="javascript:void(0)" onclick="updateTree()"> <i
+													class="icon-refresh"></i>
+												</a>
+												</div>
+												 -->
+										</div>		
+										<div class="widget-body">		
+											<div class="widget-main no-padding">
+												<div id="tree1" class="tree"></div>
+											</div>				
+										</div>			
+									
+								</div>
+
+						</div>
+					</div>
+					<!-- /.row -->
+					<!-- show resulte -->
+					<div class="row">
+						
+					</div>
+					<!-- /show resulte -->
+					
+				</div>
+				<!-- /.main-container-inner -->
+				<a href="#" id="btn-scroll-up"
+					class="btn-scroll-up btn btn-sm btn-inverse"> <i
+					class="icon-double-angle-up icon-only bigger-110"></i>
+				</a>
+			</div>
+			<div id="docEdit" name="docEdit" class="hide">
+			</div>
+			<!-- /.main-container -->
+			
+			<script type="text/javascript" src="${static_js_uri}/ckeditor/ckeditor.js"></script>
+			<!-- 	
+			<script type="text/javascript" src="${static_js_uri}/ZeroClipboard/ZeroClipboard.js"></script>
+			<script src="${static_js_uri}/jquery.hotkeys.min.js"></script>
+			<script src="${static_js_uri}/bootstrap-wysiwyg.min.js"></script>
+			<script type="text/javascript" src="${static_js_uri}/jspdf.debug.js"></script>
+			<script type="text/javascript" src="${static_js_uri}/html2canvas.js"></script>	
+					
+			<script type="text/javascript" charset="utf-8" src="${static_js_uri}/ue/ueditor.config.js"></script>
+    		<script type="text/javascript" charset="utf-8" src="${static_js_uri}/ue/ueditor.all.min.js"> </script>
+     		-->
+			<script type="text/javascript" src="${static_js_uri}/echarts/esl.js"></script>
+			
+			<script type="text/javascript" src="${static_js_uri}/fuelux/fuelux.tree.min.js"></script>
+			<script type="text/javascript" src="${static_js_uri}/bootbox.min.js"></script>
+		
+			<script type="text/javascript" charset="utf-8" src="${static_js_uri}/jQuery_Word_Export/FileSaver.js"></script>
+    		<script type="text/javascript" charset="utf-8" src="${static_js_uri}/jQuery_Word_Export/jquery.wordexport.js"> </script>
+			
+			<script type="text/javascript">
+
+			function demoFromHTML() {
+				var pdf = new jsPDF('p','pt','a4');
+				var options = { format : 'PNG' ,pagesplit: true};
+				pdf.addHTML($("#pdf_id"),options,function() {
+					var timestamp = Date.parse(new Date()); 
+					var string = pdf.save(timestamp+'.pdf');
+					//alert("ok");
+				});
+				
+				
+			}
+											
+				var DataSourceTree = function(options) {
+					this._data = options.data;
+					this._delay = options.delay;
+				}
+
+				DataSourceTree.prototype.data = function(options, callback) {
+					var self = this;
+					var $data = null;
+
+					if (!("name" in options) && !("type" in options)) {
+						$data = this._data;//the root tree
+
+						callback({
+							data : $data
+						});
+						return;
+					} else if ("type" in options && options.type == "folder") {
+						if ("additionalParameters" in options
+								&& "children" in options.additionalParameters) {
+							$data = options.additionalParameters.children;
+						} else
+							$data = {}//no data
+					}
+
+					if ($data != null)//this setTimeout is only for mimicking some random delay
+						setTimeout(function() {
+							callback({
+								data : $data
+							});
+					}, parseInt(Math.random() * 500) + 200);
+
+					//we have used static data here
+					//but you can retrieve your data dynamically from a server using ajax call
+					//checkout examples/treeview.html and examples/treeview.js for more info
+				};
+
+				var tree_data = ${treeObjectJson!""};
+					
+				var treeDataSource = new DataSourceTree({
+					data : tree_data
+				});
+				
+				//没搞定
+				function updateTree(){
+					$.ajax({
+						  url: "${listSQL_url}?jsoncallback=?",
+						  contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+						  dataType: 'json',					  
+						  success: function(result){
+							  console.log("success"+result);
+						  },
+						  error: function(request, textStatus, errorThrown) {
+						    //alert(textStatus);
+						  },
+						  complete: function(request, textStatus) { //for additional info
+							  var option = eval(request.responseText);
+							  console.log("option:"+option);
+							  							  						
+							  $('#tree1 .tree-folder:visible').remove();
+							  $('#tree1 .tree-folder-content:visible').remove();
+							  $('#tree1 .tree-item:visible').remove();
+								// 2. remove assigned data from template element object
+								delete($('#tree1').data().tree);
+								delete($('#tree1').data());
+								var t = Math.floor((Math.random() * 10) + 1);
+								
+							var MyData = {									
+									t:{
+										name:t,
+										type:'folder',										
+										'additionalParameters': {"children":{"10":{"id":"10","qaction":"5","name":"外汇资讯","type":"item"},"7":{"id":"7","qaction":"5","name":"外汇交易策略","type":"item"},"6":{"id":"6","qaction":"5","name":"原油交易策略","type":"item"},"5":{"id":"5","qaction":"5","name":"黄金评论","type":"item"},"9":{"id":"9","qaction":"5","name":"白银投资","type":"item"},"8":{"id":"8","qaction":"5","name":"贵金属交易策略","type":"item"},"13":{"id":"13","qaction":"5","name":"MT4出金","type":"item"},"14":{"id":"14","qaction":"5","name":"入金","type":"item"},"11":{"id":"11","qaction":"5","name":"黄金资讯","type":"item"},"12":{"id":"12","qaction":"5","name":"市场头条","type":"item"}}}
+									}
+									
+								}
+						
+							var UrlDataSource = new DataSourceTree({
+								data : MyData, delay: 400
+							});
+				
+							// 3. Refactor Tree UI
+							$('#tree1').ace_tree({										
+								dataSource: UrlDataSource,
+								loadingHTML : '<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',
+								selectable: true,
+								multiSelect : true,
+								'open-icon' : 'icon-minus',
+								'close-icon' : 'icon-plus',
+								'selected-icon' : 'icon-ok',
+								'unselected-icon' : 'icon-remove'
+							});							
+						  }
+						});
+				}
+				
+				function addTmp(p){
+					var flag = 0;
+					var tmp = "<table class='table table-striped table-bordered '>"+
+					"<thead>"+
+						"<tr>"+
+							"<th class='center'>变量</th>"+
+							"<th>类型</th>"+
+							"<th class='hidden-xs'>参数</th>"+
+							"<th class='hidden-480'>备注</th>"+
+
+						"</tr>"+
+					"</thead>"+
+					"<tbody>";
+					console.log(p);
+					var o = eval(p);
+					for(var k in o) {
+						//console.log(o[k]['qaction']);
+						if(o[k]['qaction']!=6)continue;
+						flag = 1;
+						
+						var sqltmp = o[k]['sqltmp'];
+						var s = eval(sqltmp);
+						for(var m in s){
+							tmp +="<tr>"+
+								"<td class='center'>"+s[m][0]+"</td>"+
+								"<td>"+"<select disabled='disabled' name='"+o[k]['id']+"_field_"+s[m][0]+"' id='"+o[k]['id']+"_field_"+s[m][0]+"'> "+
+										"<option "; 
+								if(s[m][2]=="INT"){ tmp+="selected='selected'"}
+								tmp+=" >INT</option>"+
+										"<option ";
+								if(s[m][2]=="VARCHAR"){ tmp+="selected='selected'"}
+								tmp+=" >VARCHAR</option>"+
+										"<option ";
+								if(s[m][2]=="TEXT"){ tmp+="selected='selected'"}
+										tmp+=" >TEXT</option>"+
+										"<option ";									
+								if(s[m][2]=="DATE"){ tmp+="selected='selected'"}
+								tmp+=">DATE</option>"+
+										"<option ";
+								if(s[m][2]=="BOOLEAN"){ tmp+="selected='selected'"}
+								tmp+=" >BOOLEAN</option>"+
+										"<option ";
+								if(s[m][2]=="FLOAT"){ tmp+="selected='selected'"}
+								tmp+=" >FLOAT</option></select>"+
+								"</td>"+
+								"<td><input type='text' value='"+s[m][1]+"' name='"+o[k]['id']+"_"+s[m][0]+"' id='"+o[k]['id']+"_"+s[m][0]+"'></td>"+
+								"<td><input type='text' readonly value='"+s[m][3]+"' name='"+o[k]['id']+"_desc_"+s[m][0]+"' id='"+o[k]['id']+"_desc_"+s[m][0]+"'>"+"</td>"+
+							"</tr>";				
+						}
+						tmp+="<tr><td colspan='4'>"+o[k]['name']+"</td></tr>";
+					}
+					
+					tmp+="</tbody>"+"</table>";
+					if(flag==1){					
+						$("#tmp_list").html(tmp);
+						//console.log(tmp);
+					}else{
+						$("#tmp_list").html("");
+					}
+			}
+
+				jQuery(function($) {
+										 				       				    				       
+					$('#tree1').on("click", function(){
+						var o = $(this).tree('selectedItems');
+						//console.log("tree:"+JSON.stringify(o));
+						addTmp(o);
+					});
+
+					
+					$('#bword').on("click", function(){
+						var stemTxt=CKEDITOR.instances.editor1.getData();
+						$("#docEdit").html(stemTxt);
+						$("#docEdit").wordExport();
+					});
+					
+					 
+					
+
+					$('#tree1')
+						.ace_tree(
+								{
+									dataSource : treeDataSource,
+									loadingHTML : '<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',
+									'selectable' : true,
+									multiSelect : true,
+									
+									'open-icon' : 'icon-minus',
+									'close-icon' : 'icon-plus',
+									
+									'selected-icon' : 'icon-ok',
+									'unselected-icon' : 'icon-remove'
+								});
+					
+					//save data
+					$("#bootbox-options").on(ace.click_event, function() {
+						bootbox.prompt("保存标题: ", function(result) {
+							if (result === null || result.length == 0) {
+								console.log("null");
+								
+							} else {
+								//console.log("is null:"+result);
+								//var doc = UE.getEditor('editor').getContent();
+								var doc=CKEDITOR.instances.editor1.getData();
+								var title = result;
+								$.ajax({
+									  url: "${doc_url}?jsoncallback=?",
+									  contentType: 'text/html;charset=utf-8',
+									  
+									  data:{"doc":doc, "title":title},
+									  success: function(result){
+										  console.log("success"+result);
+									  },
+									  error: function(request, textStatus, errorThrown) {
+									    //alert(textStatus);
+									  },
+									  complete: function(request, textStatus) { //for additional info
+										  var option = request.responseText;
+										  //option = option.replace(/[\r\n]/g, "");							  
+										  
+										  console.log("success:"+option);
+										  alert(option);
+									  }
+									});
+							}
+						});
+						/*
+						var msg = "<div id='pdf_id'>"+$("#dataEditor").html()+"</div>";
+						bootbox.dialog({
+							message: msg,
+							buttons: 			
+							{
+								"OK" :
+								 {
+									"label" : "<i class='icon-ok'></i> 保存PDF",
+									"className" : "btn-sm btn-success",
+									"callback": function() {
+										//Example.show("great success");
+										demoFromHTML();
+										
+									}
+								}
+								
+							}
+							
+						});
+						$(".modal-dialog").css("width","900px");*/
+						
+					});
+
+				});
+				
+				
+			</script>
+			<script type="text/javascript">
+			
+				var option_1 = option = {
+
+					    tooltip : {
+					        trigger: 'axis'
+					    },
+					    legend: {
+					        data:['Math Log']
+					    },
+					    calculable : true,
+					    xAxis : [
+					        {
+					            type : 'category',
+					            boundaryGap : false,
+					            data : ${yAxis!"[]"},
+					        }
+					    ],
+					    yAxis : [
+					        {
+					            type : 'value',
+					            
+					        }
+					    ],
+					    series : [
+					        {
+					            name:'Math Log',
+					            type:'line',
+					            data:${xAxis!"[]"},
+					           
+					        }
+					    ]
+					};
+	
+						
+				require.config({
+			        paths:{ 
+			            echarts:'${static_js_uri}/echarts/echarts-map',
+			            'echarts/chart/bar' : '${static_js_uri}/echarts/echarts-map',
+			            'echarts/chart/line' : '${static_js_uri}/echarts/echarts-map',  
+			            'echarts/chart/pie' : '${static_js_uri}/echarts/echarts-map',  
+			            'echarts/chart/map' : '${static_js_uri}/echarts/echarts-map',
+			            'echarts/chart/scatter' : '${static_js_uri}/echarts/echarts-map',
+			            'echarts/chart/funnel' : '${static_js_uri}/echarts/echarts-map',
+			            
+			        }
+			    });
+				
+				var f = 1;
+				var myChart4;
+				var startTime ; 
+				require([ 'echarts', 'echarts/chart/bar', 'echarts/chart/line',
+						'echarts/chart/pie', 'echarts/chart/scatter',
+						'echarts/chart/funnel', ], function(ec) {
+					myChart4 = ec.init(document
+							.getElementById('custom-container'));
+					myChart4.setOption(option_1, true);
+					
+					var ecConfig = require('echarts/config');
+					myChart4.on(ecConfig.EVENT.DBLCLICK, function (param){
+						console.log("dial:"+param.name+"- volume:"+param.value);
+						//获取同一刻度下面的不同数据 对比
+						$("#juxtapose").attr("class", "col-xs-12 col-sm-12");
+					});
+					
+				});
+				
+				
+				function focusGraphic() {
+
+					myChart4.showLoading();
+					setTimeout(refresh, 1000);
+				}
+
+				jQuery.fn.getIdArray = function() {
+					  var ret = [];
+					  $('[id]', this).each(function() {
+					    ret.push(this.id);
+					  });
+					  return ret;
+					};
+					
+				function refresh() {
+					var o = $('#tree1').tree('selectedItems');
+									
+					var selectedItems = escape(JSON.stringify(o));
+					console.log( JSON.stringify(o) );
+										
+					var itemStyle_lable=0;
+					if($('input[name="itemStyle_lable"]:checked').val()=="on"){
+						itemStyle_lable=1;
+					}
+					var itemStyle_areaStyle=0;
+					if($('input[name="itemStyle_areaStyle"]:checked').val()=="on"){
+						itemStyle_areaStyle=1;
+					}
+					var markLine_average=0;
+					if($('input[name="markLine_average"]:checked').val()=="on"){
+						markLine_average=1;
+					}
+					
+					var roseType=0;
+					if($('input[name="roseType"]:checked').val()=="on"){
+						roseType=1;
+					}
+					
+					var array = $("#tmp_list").getIdArray();
+					var tmp={};
+					for(var a in array){
+						var tid = array[a];						
+						tmp[tid] = $("#"+tid).val();
+					}
+					
+					var tmp_list = JSON.stringify(tmp);
+					 
+					startTime = new Date().getTime(); 
+					$.ajax({
+						  url: "${json_url}?jsoncallback=?",
+						  contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+						  dataType: 'json',
+						  data:{"ids":selectedItems,  "graph_type":$('input[name="graph_type"]:checked').val(), "itemStyle_lable":itemStyle_lable
+							  ,"itemStyle_areaStyle":itemStyle_areaStyle, "markLine_average":markLine_average,"roseType":roseType, "tmp_list":tmp_list},
+						  success: function(result){
+							  console.log("success"+result);
+						  },
+						  error: function(request, textStatus, errorThrown) {
+						    //alert(textStatus);
+						  },
+						  complete: function(request, textStatus) { //for additional info
+							  var option = request.responseText;
+							  var chk = option.substring(1, 5);
+							  
+						      if(option.length > 2 && chk!='html'){
+							  	myChart4.clear();
+							  	myChart4.setOption(JSON.parse(option), true);
+							  	myChart4.refresh();
+						  	  }else{
+						  		alert("没数据!");
+						  	  }
+						      						      
+							  myChart4.hideLoading();
+							  
+							  if(chk=='html'){
+								  alert("还没登录或超时退出!");
+							  }
+							  endTime = new Date().getTime();
+							  var useTime = (endTime - startTime)/1000;
+							  var helpMsg = "";
+							  $("#showTime").attr("class", "col-xs-12 col-sm-12");
+							  if(useTime > 5) {
+								  helpMsg = ",<a href=''>太慢了，需要帮忙</a>";
+							  }
+							  $("#useTime").html(useTime+" 秒"+helpMsg);
+						  }
+						});
+				}
+				
+								
+				/*
+				$("#dataEditor").ace_wysiwyg();
+				$("#dataEditor").css("height", "500px");
+				$("#dataEditor").css("max-height", "500px");
+				*/
+				function SaveImg() {
+					var dataURL = myChart4.getDataURL();
+					
+					$.ajax({
+						  url: "${saveimg_url}?jsoncallback=?",
+						  contentType: 'text/html;charset=utf-8',
+						  
+						  data:{"data":dataURL},
+						  success: function(result){
+							  console.log("success"+result);
+						  },
+						  error: function(request, textStatus, errorThrown) {
+						    //alert(textStatus);
+						  },
+						  complete: function(request, textStatus) { //for additional info
+							  var option = request.responseText;
+							  option = option.replace(/[\r\n]/g, "");							  
+							  var imgs = "";
+						     imgs = "<img src='${data_uri}"+option+"' />";
+						    // UE.getEditor('editor').setContent(imgs, true);
+						   //var editor_data =
+							   //CKEDITOR.instances.editor1.appendHtml(imgs); 
+						    var stemTxt=CKEDITOR.instances.editor1.getData(); 
+						   // console.log("editor_data:"+stemTxt);
+							 
+							CKEDITOR.instances.editor1.setData( stemTxt+imgs );
+						  }
+						});				
+				}
+				
+				setTimeout(initEdits, 5000);
+				function initEdits(){
+				var initEDit = getCookie("cacheEdit");
+			       if(initEDit.length >0){			    	   
+			    	   CKEDITOR.instances.editor1.setData(unescape(initEDit));
+			       }
+			       
+			      // console.log("initEDit:"+initEDit);
+				}
+				  setInterval("myInterval()",10000);//1000为1秒钟  60秒一次
+
+			       function myInterval()
+			       {
+			    	   var stemTxt=CKEDITOR.instances.editor1.getData();
+			    	   if(stemTxt.length > 1){
+			    	   		setCookie("cacheEdit", escape(stemTxt), 1);
+			       	   }
+			    	  // console.log("loop time:"+stemTxt);			    	   			    	   
+			        }
+				
+			       function setCookie(cname, cvalue, exdays) {
+			    	    var d = new Date();
+			    	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+			    	    var expires = "expires="+d.toUTCString();
+			    	    document.cookie = cname + "=" + cvalue + "; " + expires;
+			       }
+			       
+			       function getCookie(cname) {
+			    	    var name = cname + "=";
+			    	    var ca = document.cookie.split(';');
+			    	    for(var i=0; i<ca.length; i++) {
+			    	        var c = ca[i];
+			    	        while (c.charAt(0)==' ') c = c.substring(1);
+			    	        if (c.indexOf(name) == 0) {
+			    	            return c.substring(name.length, c.length);
+			    	        }
+			    	    }
+			    	    return "";
+			    	}
+			       
+			    
+			       
+			       
+								
+			</script>
